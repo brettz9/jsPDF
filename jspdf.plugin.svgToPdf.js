@@ -369,12 +369,12 @@ var svgElementToPdf = function(element, pdf, options) {
                                 pdf.lines(big_list, mx, my, [1, 1], null);
                             }
                             big_list = [];
-                            if (previous_element == null) {
-                                x = numbers[0];
-                                mx = numbers[0];
-                                y = numbers[1];
-                                my = numbers[1];
-                            }
+
+                            x = numbers[0];
+                            mx = numbers[0] + x_offset;
+                            y = numbers[1];
+                            my = numbers[1] + y_offset;
+
                             if (numbers.length != 2) {
                                 x = numbers[0];
                                 y = numbers[1];
