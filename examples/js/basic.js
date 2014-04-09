@@ -308,6 +308,38 @@ function demoStringSplitting() {
 	pdf.save('Test.pdf');
 }
 
+/**
+* Used by jsPDF.js
+*/
+var saveAs = function (blob, options) {
+    var blobUrl = URL.createObjectURL(blob);
+    try {
+        // This creates a bookmarkable data URL,
+        // but it doesn't currently work in
+        // Firefox, and although it works in Chrome,
+        // Chrome doesn't make the full "data:" URL
+        // visible unless you right-click to "Inspect
+        // element" and then right-click on the element
+        // to "Copy link address".
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function() {
+            var recoveredBlob = xhr.response;
+            var reader = new FileReader();
+            reader.onload = function() {
+                var blobAsDataUrl = reader.result;
+                window.open(blobAsDataUrl);
+            };
+            reader.readAsDataURL(recoveredBlob);
+        };
+        xhr.open('GET', blobUrl);
+        xhr.send();
+    }
+    catch (e) {
+        window.open(blobUrl);
+    }
+};
+
 function demoFromHTML() {
 	var pdf = new jsPDF('p', 'in', 'letter')
 
